@@ -11,7 +11,6 @@ from burp import IMessageEditorTab
 from burp import IScannerInsertionPointProvider
 from burp import IScannerInsertionPoint
 from burp import IIntruderPayloadProcessor
-from array import array
 import traceback
 
 import grpc_utils
@@ -40,7 +39,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
         headers = requestInfo.getHeaders()
         isGrpc = False
         for header in headers:
-            if header.lower().startswith("content-type: application/grpc"):
+            if header.lower().startswith("content-type: application/grpc-web-text"):
                 isGrpc = True
                 break
 

@@ -1,5 +1,4 @@
 # grpc_utils.py
-import io
 import subprocess
 import os
 
@@ -40,7 +39,6 @@ def extract_value_from_path(field_path, message):
                 return value
 
     return None
-
 
 
 def replace_value_at_path(message, field_path, new_value):
@@ -127,8 +125,6 @@ def find_insertion_points(decoded_message):
     return insertion_points
 
 
-
-
 def get_decoded_payload_grpc_web_text(payload):
     temp_file_path = 'grpc_coder_output_decode.txt'
     temp_proto_path = 'proto_output.txt'
@@ -175,6 +171,7 @@ def get_decoded_payload_grpc_web_text(payload):
                     os.remove(temp_file)
                 except:
                     pass
+
 
 def get_encoded_payload_grpc_web_text(payload):
     temp_file_path_encoding = 'grpc_coder_output_encode.txt'

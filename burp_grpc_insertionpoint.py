@@ -2,10 +2,7 @@ from burp import IBurpExtender
 from burp import IContextMenuFactory, IContextMenuInvocation
 from java.io import PrintWriter
 from javax.swing import JMenuItem
-import subprocess
 from java.lang import System
-import os
-import commands
 from burp import IMessageEditorTabFactory
 from burp import IMessageEditorTab
 from burp import IScannerInsertionPointProvider
