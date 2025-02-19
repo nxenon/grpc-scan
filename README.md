@@ -27,10 +27,10 @@ New Features:
 
 
 gRPC-Pentest-Suite contains these 2 tools:
-- **[grpc-scan](#grpc-coder-usage)** scanning the gRPC-web javascript webpacked files to detect grpc endpoints, services, messages and field types
-- **[grpc-coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
+- **[grpc_scan](#grpc-coder-usage)** scanning the gRPC-web javascript webpacked files to detect grpc endpoints, services, messages and field types
+- **[grpc_coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
 - **[burp_grpc_extension_main.py](#grpc-coder-extension-usage)** extension for burp suite to easily using gRPC-Coder tool
-- **[big-string-chunker](#big-string-chunker-tool)** this tool chunks a big string into pieces of 80 characters, so that gRPC-coder can encode it (also reverse)
+- **[big_string_chunker](#big-string-chunker-tool)** this tool chunks a big string into pieces of 80 characters, so that gRPC-coder can encode it (also reverse)
 
 # Hacking into gRPC-Web Article & YouTube Video
 This article includes the methodology for pentesting gRPC-Web and a methodology for finding hidden servies and endpoints. Read [Hacking into gRPC-Web](https://infosecwriteups.com/hacking-into-grpc-web-a54053757a45) article and for `application/grpc-web+proto` see this article [Hacking into gRPC-Web : Part 2](https://medium.com/@nxenon/hacking-into-grpc-web-part-2-f8540309e1e8).
@@ -142,7 +142,7 @@ Output:
 Then you put the new base64 payload into Burp Suite intercepted request.
 
 # Big String Chunker Tool
-When you have a big string that you want to put it into a value in protobuf fields, you have to make that string into some pieces of characters using [big-string-chunker.py](big-string-chunker.py).
+When you have a big string that you want to put it into a value in protobuf fields, you have to make that string into some pieces of characters using [big_string_chunker.py](big_string_chunker.py).
 
 For Example:
 
@@ -182,8 +182,8 @@ For Example:
 
 ### Big String Chunker CLI Usage [Chunk]
 
-    cat bigString.txt | python3 big-string-chunker.py --stdin --chunk
-    python3 big-string-chunker.py --file bigString.txt --chunk
+    cat bigString.txt | python3 big_string_chunker.py --stdin --chunk
+    python3 big_string_chunker.py --file bigString.txt --chunk
 
 ## Big String Chunker in gRPC Coder Burp Extension [Un-Chunk]
 - Big String
@@ -194,7 +194,7 @@ For Example:
 
 ### Big String Chunker CLI Usage [Un-Chunk]
 
-    cat chunkedString.txt | python3 big-string-chunker.py --stdin --un-chunk
+    cat chunkedString.txt | python3 big_string_chunker.py --stdin --un-chunk
     python3 chunkedString.py --file bigString.txt --un-chunk
 
 # gRPC-Scan Usage

@@ -187,7 +187,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
             else:
                 python_name = "python3"
 
-        command = python_name + " big-string-chunker.py --file chunked_string.txt --un-chunk"
+        command = python_name + " big_string_chunker.py --file chunked_string.txt --un-chunk"
 
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         # output = output.decode('utf-8')
@@ -207,7 +207,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
 
     def chunk_big_string(self, event):
         """
-        Chunk big string into pieces of 80 characters using big-string-chunker.py
+        Chunk big string into pieces of 80 characters using big_string_chunker.py
         :param event:
         :return:
         """
@@ -230,7 +230,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
             else:
                 python_name = "python3"
 
-        command = python_name + " big-string-chunker.py --file big_string.txt --chunk"
+        command = python_name + " big_string_chunker.py --file big_string.txt --chunk"
 
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         # output = output.decode('utf-8')
