@@ -33,6 +33,11 @@ def convert_to_hex(content):
     return hex_rep
 
 
+def new_method_convert_hex_to_ascii(hex_input):
+    ascii_bytes = bytearray.fromhex(hex_input)
+    return ascii_bytes
+
+
 def split_grpc_length_prefix(hex_input):
     """
     split length prefix and payload from hex input
@@ -155,7 +160,7 @@ def grpc_web_decoder(content_input):
 
 
 def print_parser_help(prog):
-    help_msg = f"""echo payload | python3 {prog} [--encode OR --decode]
+    help_msg = """echo payload | python3 {} [--encode OR --decode]
 
     General Arguments:
       --encode       encode protoscope binary output to application/grpc-web-text
@@ -168,7 +173,7 @@ def print_parser_help(prog):
     
     Help:
       --help        print help message
-"""
+""".format(prog)
 
     print(help_msg)
 
