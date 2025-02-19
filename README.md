@@ -199,11 +199,11 @@ For Example:
 
 # gRPC-Scan Usage
 
-[grpc-scan.py](grpc-scan.py)
+[grpc_scan.py](grpc_scan.py)
         
-    python3 grpc-scan.py --file main.js
+    python3 grpc_scan.py --file main.js
     OR
-    cat main.js | python3 grpc-scan.py --stdin
+    cat main.js | python3 grpc_scan.py --stdin
 
 # gRPC-Scan Javascript Files Note
 
@@ -217,9 +217,9 @@ ProtoBuf Version Support:
 
 # gRPC-Scan Help
 
-    python3 grpc-scan.py --help
+    python3 grpc_scan.py --help
 
-    python3 grpc-scan.py [INPUT]
+    python3 grpc_scan.py [INPUT]
     Input Arguments:
       --file      file name of js file
       --stdin     get input from standard input
@@ -229,7 +229,7 @@ ProtoBuf Version Support:
 # gRPC-Scan Output Example
 
         
-    python3 grpc-scan.py --file main.js
+    python3 grpc_scan.py --file main.js
 
     Found Endpoints:
       /grpc.gateway.testing.EchoService/Echo
