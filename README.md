@@ -45,7 +45,7 @@ This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extensio
 
     pip3 install -r requirements.txt
 
-for **grpc-coder.py** you need to install [protoscope](https://github.com/protocolbuffers/protoscope) in system gloablly.
+for **grpc_coder.py** you need to install [protoscope](https://github.com/protocolbuffers/protoscope) in system gloablly.
     
     go install github.com/protocolbuffers/protoscope/cmd/protoscope...@latest
 
@@ -53,10 +53,10 @@ for **gRPC Coder Burp Extension** you need to have these requirements:
 - download the whole repository (because the script needs grpc.coder.py)
 - jython must be installed and configured in burp
 - protoscope must be installed globally on system (because the extension runs a protoscope command)
-- python3 must be installed to run the grpc-coder.py script (because the gRPC-Coder is written in python3)
+- python3 must be installed to run the grpc_coder.py script (because the gRPC-Coder is written in python3)
 - in windows python 3 binary name is **python** and in linux and mac the binary name is **python3** 
 
-the extension runs two **safe** commands to work with grpc-coder.py and protoscope tools.
+the extension runs two **safe** commands to work with grpc_coder.py and protoscope tools.
 
 # gRPC Coder Extension Usage
 after installing the extension it adds to menu items into extensions menu item:
@@ -81,15 +81,15 @@ Note: [protoscope](https://github.com/protocolbuffers/protoscope) and python3 mu
 
 # gRPC-Coder Usage
 
-**GRPC-Coder.py** has two options:
+**grpc_coder.py** has two options:
 - [Encode](#encoding)
 - [Decode](#decoding)
 
-[grpc-coder.py](grpc-coder.py)
+[grpc_coder.py](grpc_coder.py)
 
-    python3 grpc-coder.py --help
+    python3 grpc_coder.py --help
 
-    echo payload | python3 grpc-coder.py [--encode OR --decode]
+    echo payload | python3 grpc_coder.py [--encode OR --decode]
 
     General Arguments:
       --encode       encode protoscope binary output to application/grpc-web-text
@@ -107,7 +107,7 @@ Note: [protoscope](https://github.com/protocolbuffers/protoscope) and python3 mu
 
 In Burp Suite when you intercept the request, get the gRPC-Web base64 encoded payload and give it to the script as standard input:
 
-    echo "AAAAABYSC0FtaW4gTmFzaXJpGDY6BVhlbm9u" | python3 grpc-coder.py --decode --type grpc-web-text | protoscope > out.txt
+    echo "AAAAABYSC0FtaW4gTmFzaXJpGDY6BVhlbm9u" | python3 grpc_coder.py --decode --type grpc-web-text | protoscope > out.txt
     cat out.txt
 
 content of out.txt:
@@ -133,7 +133,7 @@ now you have to encode the new payload: [Encode](#encoding)
 
 after editing [decoded](#decoding) payload you have to encode it:
 
-    protoscope -s out.txt | python3 grpc-coder.py --encode --type grpc-web-text
+    protoscope -s out.txt | python3 grpc_coder.py --encode --type grpc-web-text
 
 Output:
     

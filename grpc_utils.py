@@ -149,7 +149,7 @@ def get_decoded_payload_grpc_web_text(payload):
             except subprocess.CalledProcessError:
                 python_name = "python"
 
-        command = [python_name, "grpc-coder.py", "--decode", "--file", temp_file_path]
+        command = [python_name, "grpc_coder.py", "--decode", "--file", temp_file_path]
         decoded = subprocess.check_output(command, shell=False)
 
         with open(temp_proto_path, 'wb') as f:
@@ -202,12 +202,12 @@ def get_encoded_payload_grpc_web_text(payload):
             with open(temp_proto_path, 'wb') as f:
                 subprocess.check_call(protoscope_command, stdout=f, shell=False)
 
-            encode_command = [python_name, "grpc-coder.py", "--encode", "--file", temp_proto_path]
+            encode_command = [python_name, "grpc_coder.py", "--encode", "--file", temp_proto_path]
             output = subprocess.check_output(encode_command, shell=False)
             return output.strip()
 
         except subprocess.CalledProcessError:
-            encode_command = [python_name, "grpc-coder.py", "--encode", "--file", temp_file_path_encoding]
+            encode_command = [python_name, "grpc_coder.py", "--encode", "--file", temp_file_path_encoding]
             output = subprocess.check_output(encode_command, shell=False)
             return output.strip()
 

@@ -363,7 +363,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
             else:
                 python_name = "python3"
 
-        command = grpc_utils.PROTOSCOPE_PATH + " -s grpc_coder_output_encode.txt | " + python_name + " grpc-coder.py --encode"
+        command = grpc_utils.PROTOSCOPE_PATH + " -s grpc_coder_output_encode.txt | " + python_name + " grpc_coder.py --encode"
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         output = output.decode('utf-8')
         output = output.strip()
@@ -405,7 +405,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
             else:
                 python_name = "python3"
 
-        command = python_name + " grpc-coder.py --decode --file grpc_coder_output_decode.txt | " + grpc_utils.PROTOSCOPE_PATH
+        command = python_name + " grpc_coder.py --decode --file grpc_coder_output_decode.txt | " + grpc_utils.PROTOSCOPE_PATH
 
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         # output = output.decode('utf-8')
@@ -451,7 +451,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
             else:
                 python_name = "python3"
 
-        command = grpc_utils.PROTOSCOPE_PATH + " -s grpc_coder_output_encode.txt | " + python_name + " grpc-coder.py --encode --type grpc-web+proto"
+        command = grpc_utils.PROTOSCOPE_PATH + " -s grpc_coder_output_encode.txt | " + python_name + " grpc_coder.py --encode --type grpc-web+proto"
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         output = output.strip()
 
@@ -492,7 +492,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory,
             else:
                 python_name = "python3"
 
-        command = python_name + " grpc-coder.py --decode --file grpc_coder_output_decode.txt --type grpc-web+proto | " + grpc_utils.PROTOSCOPE_PATH
+        command = python_name + " grpc_coder.py --decode --file grpc_coder_output_decode.txt --type grpc-web+proto | " + grpc_utils.PROTOSCOPE_PATH
 
         output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
         # output = output.decode('utf-8')
