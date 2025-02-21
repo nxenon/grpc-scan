@@ -101,6 +101,9 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
 
             try:
                 message, typedef = decode_b64_grpc_web_text(payload=request_body)
+                decoded_string = message.decode("unicode_escape")
+                message = decoded_string
+                message = message.encode('utf-8')
                 typedef_main_json = get_main_json_from_type_def_ordered_dict(type_def=typedef)
             except Exception as e:
                 message = "Error decoding request: {}".format(str(e))
@@ -143,7 +146,7 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
             try:
                 modified_payload = self._txtInputPayload.getText()  # Get modified text
                 modified_payload = modified_payload.tostring()
-                modified_payload = modified_payload.decode('utf-8')
+                # modified_payload = modified_payload.decode('utf-8')
                 type_def_raw = self._txtInputTypeDef.getText().tostring().decode('utf-8')
                 type_def_object = create_bbpb_type_def_from_json(type_def_raw)
                 encoded_payload = encode_grpc_web_json_to_b64_format(modified_payload, type_def_object)  # Convert back

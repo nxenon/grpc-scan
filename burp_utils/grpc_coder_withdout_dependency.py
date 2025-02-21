@@ -1,15 +1,16 @@
 """
 This is created to remove the protoscope binary dependency for burp suite
 """
-import sys
 
 import grpc_coder
+import json
+from collections import OrderedDict
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 sys.path.insert(0, "libs/blackboxprotobuf")
 sys.path.insert(0, "libs/six")
 import blackboxprotobuf
-import json
-from collections import OrderedDict
-
 
 def decode_b64_grpc_web_text(payload):
     try:
