@@ -6,6 +6,73 @@ Available Content Types:
 - [x] application/grpc-web-text
 - [ ] application/grpc-web+proto ([See blackboxprotobuf Repo](https://github.com/nccgroup/blackboxprotobuf))
 
+
+gRPC-Pentest-Suite contains these 2 tools:
+- **[grpc_scan](#grpc-coder-usage)** scanning the gRPC-web javascript webpacked files to detect grpc endpoints, services, messages and field types
+- **[grpc_coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
+- **[grpc_web_burp_extension.py](#grpc-coder-extension-usage)** extension for burp suite to easily using gRPC-Coder tool
+- **[big_string_chunker](#big-string-chunker-tool)** this tool chunks a big string into pieces of 80 characters, so that gRPC-coder can encode it (also reverse)
+- **[old_grpc_web_burp_extension_with_dependency.py](#grpc-coder-old-extension-with-dependency-installation)** old extension for burp suite which nees some dependency
+
+# Hacking into gRPC-Web Article & YouTube Video
+This article includes the methodology for pentesting gRPC-Web and a methodology for finding hidden servies and endpoints. Read [Hacking into gRPC-Web](https://infosecwriteups.com/hacking-into-grpc-web-a54053757a45) article and for `application/grpc-web+proto` see this article [Hacking into gRPC-Web : Part 2](https://medium.com/@nxenon/hacking-into-grpc-web-part-2-f8540309e1e8).
+
+This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extension: How to manipulate gRPC-Web payloads and analyse the JavaScript webpacked files to find hidden endpoints, services and messages.
+[Watch](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
+
+
+[![Watch the video](https://img.youtube.com/vi/VoDyweIjT2U/maxresdefault.jpg)](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
+
+# gRPC Coder Extension Usage
+after installing the extension it adds to menu items into extensions menu item:
+- gRPC Coder **Decode**
+- gRPC Coder **Encode**
+
+Steps:
+1. select the gRPC-Web base64 payload in burp interceptor or repeater and click on Decode item for decoding to human-readable format
+2. edit the text and select the new edited text and click on Encode item for encoding to gRPC-Web base64 format
+
+## Watch the Extension Usage Video on YouTube
+[Watch](https://youtu.be/w75_ixNzM24)
+
+[![Watch the video](https://img.youtube.com/vi/w75_ixNzM24/maxresdefault.jpg)](https://youtu.be/w75_ixNzM24)
+
+
+# gRPC-Web Coder New Extension Installation [recommended]
+1. Download the Whole Repository (the extension needs files in this repo)
+2. add [grpc_web_burp_extension.py](grpc_web_burp_extension.py) in Burp Extensions.
+
+## gRPC-Web Coder New Extension Features
+- New tab in repeater message editor
+- edit proto type definition
+- automatically detect grpc-web-text requests (via Content-Type)
+
+# gRPC Coder Old Extension (with dependency) Installation
+1. Download the Whole Repository (the extension needs some files in this repo)
+2. add [old_grpc_web_burp_extension_with_dependency.py](old_grpc_web_burp_extension_with_dependency.py) in Burp Extensions.
+3. This extension has some dependencies which need to be installed: [Requirements](#requirements-for-burp-suite-old-extension-with-dependency)
+
+Note: [protoscope](https://github.com/protocolbuffers/protoscope) and python3 must be system globally installed.
+
+
+## Requirements for Burp Suite Old Extension (with dependency)
+
+    pip3 install -r requirements.txt
+
+for **grpc_coder.py** you need to install [protoscope](https://github.com/protocolbuffers/protoscope) in system gloablly.
+    
+    go install github.com/protocolbuffers/protoscope/cmd/protoscope...@latest
+
+for **gRPC Coder Burp Extension** you need to have these requirements:
+- download the whole repository (because the script needs grpc.coder.py)
+- jython must be installed and configured in burp
+- protoscope must be installed globally on system (because the extension runs a protoscope command)
+- python3 must be installed to run the grpc_coder.py script (because the gRPC-Coder is written in python3)
+- in windows python 3 binary name is **python** and in linux and mac the binary name is **python3** 
+
+the extension runs two **safe** commands to work with grpc_coder.py and protoscope tools.
+
+## Old Extension Features
 New Features:
 1. Automatically Encode/Decode by New Decoded Protobuf Tab (you can directly view the decoded protobuf in the Burp tool (Repeater, Proxy, Intruder...) AND automatically encode it back if we changed anything.)
 
@@ -24,60 +91,6 @@ New Features:
           }
         }
         10: {2: 20}
-
-
-gRPC-Pentest-Suite contains these 2 tools:
-- **[grpc_scan](#grpc-coder-usage)** scanning the gRPC-web javascript webpacked files to detect grpc endpoints, services, messages and field types
-- **[grpc_coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
-- **[burp_grpc_extension_main.py](#grpc-coder-extension-usage)** extension for burp suite to easily using gRPC-Coder tool
-- **[big_string_chunker](#big-string-chunker-tool)** this tool chunks a big string into pieces of 80 characters, so that gRPC-coder can encode it (also reverse)
-
-# Hacking into gRPC-Web Article & YouTube Video
-This article includes the methodology for pentesting gRPC-Web and a methodology for finding hidden servies and endpoints. Read [Hacking into gRPC-Web](https://infosecwriteups.com/hacking-into-grpc-web-a54053757a45) article and for `application/grpc-web+proto` see this article [Hacking into gRPC-Web : Part 2](https://medium.com/@nxenon/hacking-into-grpc-web-part-2-f8540309e1e8).
-
-This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extension: How to manipulate gRPC-Web payloads and analyse the JavaScript webpacked files to find hidden endpoints, services and messages.
-[Watch](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
-
-
-[![Watch the video](https://img.youtube.com/vi/VoDyweIjT2U/maxresdefault.jpg)](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
-
-# Requirements
-
-    pip3 install -r requirements.txt
-
-for **grpc_coder.py** you need to install [protoscope](https://github.com/protocolbuffers/protoscope) in system gloablly.
-    
-    go install github.com/protocolbuffers/protoscope/cmd/protoscope...@latest
-
-for **gRPC Coder Burp Extension** you need to have these requirements:
-- download the whole repository (because the script needs grpc.coder.py)
-- jython must be installed and configured in burp
-- protoscope must be installed globally on system (because the extension runs a protoscope command)
-- python3 must be installed to run the grpc_coder.py script (because the gRPC-Coder is written in python3)
-- in windows python 3 binary name is **python** and in linux and mac the binary name is **python3** 
-
-the extension runs two **safe** commands to work with grpc_coder.py and protoscope tools.
-
-# gRPC Coder Extension Usage
-after installing the extension it adds to menu items into extensions menu item:
-- gRPC Coder **Decode**
-- gRPC Coder **Encode**
-
-Steps:
-1. select the gRPC-Web base64 payload in burp interceptor or repeater and click on Decode item for decoding to human-readable format
-2. edit the text and select the new edited text and click on Encode item for encoding to gRPC-Web base64 format
-
-## Watch the Extension Usage Video on YouTube
-[Watch](https://youtu.be/w75_ixNzM24)
-
-[![Watch the video](https://img.youtube.com/vi/w75_ixNzM24/maxresdefault.jpg)](https://youtu.be/w75_ixNzM24)
-
-
-# gRPC Coder Extension Installation
-1. Download the Whole Repository (the extension needs some files in this repo)
-2. add [burp_grpc_extension_main.py](burp_grpc_extension_main.py) in Burp Extensions.
-
-Note: [protoscope](https://github.com/protocolbuffers/protoscope) and python3 must be system globally installed.
 
 # gRPC-Coder Usage
 
@@ -215,7 +228,14 @@ ProtoBuf Version Support:
 - Version 3 [OK]
 - Version 2 [Some Features do not work]
 
-# gRPC-Scan Help
+
+## Requirements
+
+
+        pip install -r requirements.txt
+
+
+## gRPC-Scan Help
 
     python3 grpc_scan.py --help
 
@@ -226,7 +246,7 @@ ProtoBuf Version Support:
     Help:
       --help      print help message
 
-# gRPC-Scan Output Example
+## gRPC-Scan Output Example
 
         
     python3 grpc_scan.py --file main.js
@@ -323,3 +343,8 @@ ProtoBuf Version Support:
 
 # gRPC Lab
 For testing this tool and getting familiar with gRPC-Web, I made a [lab](https://github.com/nxenon/grpc-lab) for gRPC & gRPC-Web.
+
+# References
+This repo uses two other library directly in [lib](libs) directory to remove some dependencies for new burp extension:
+- [six](https://github.com/benjaminp/six)
+- [blackboxprotobuf](https://github.com/nccgroup/blackboxprotobuf)
