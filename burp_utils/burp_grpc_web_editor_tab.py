@@ -76,7 +76,7 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
                     self._grpcWebTextPayloadCheckBox.setSelected(value2.startswith('application/grpc-web-text'))
                     return True
 
-        return False
+        return True
 
     def isModified(self):
         """ Check if either tab content is modified """
@@ -94,7 +94,7 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
             self._txtInputTypeDef.setEditable(False)
             return
 
-        if self.isGrpcWebTextPayloadEnabled():
+        if True:
             analyzed_request = self._extender._helpers.analyzeRequest(content)
             body_offset = analyzed_request.getBodyOffset()
             request_body = content[body_offset:]
@@ -142,7 +142,7 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
 
     def getMessage(self):
         """ Return the modified content from the payload tab """
-        if self.isGrpcWebTextPayloadEnabled():
+        if True:
             try:
                 modified_payload = self._txtInputPayload.getText()  # Get modified text
                 modified_payload = modified_payload.tostring()
