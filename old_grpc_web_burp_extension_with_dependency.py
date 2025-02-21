@@ -14,15 +14,15 @@ from burp import IIntruderPayloadProcessor
 import traceback
 
 import grpc_utils
-from burp_with_dep.burp_grpc_decodetab import ProtoDecodeTab
-from burp_with_dep.burp_grpc_insertionpoint import GrpcInsertionPoint
+from burp_utils_with_dep.burp_grpc_decodetab import ProtoDecodeTab
+from burp_utils_with_dep.burp_grpc_insertionpoint import GrpcInsertionPoint
 
 
 class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory, IScannerInsertionPointProvider, IIntruderPayloadProcessor):
 
     def registerExtenderCallbacks(self, callbacks):
         self.helpers = callbacks.getHelpers()
-        callbacks.setExtensionName('gRPC-Web Coder')
+        callbacks.setExtensionName('gRPC-Web Coder Old Extension (with dependency)')
         callbacks.registerContextMenuFactory(self)
         self.stdout = PrintWriter(callbacks.getStdout(), True)
         self.stderr = PrintWriter(callbacks.getStderr(), True)

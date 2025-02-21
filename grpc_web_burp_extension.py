@@ -1,7 +1,8 @@
 from burp import IBurpExtender
 from burp import IMessageEditorTabFactory
 from java.io import PrintWriter
-from burp.burp_grpc_web_editor_tab import GrpcWebExtensionEditorTab
+from burp_utils.burp_grpc_web_editor_tab import GrpcWebExtensionEditorTab
+
 
 class BurpExtender(IBurpExtender, IMessageEditorTabFactory):
     def registerExtenderCallbacks(self, callbacks):
