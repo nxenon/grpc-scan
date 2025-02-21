@@ -13,7 +13,7 @@ def decode_b64_payload(b64_content):
         decoded = base64.b64decode(b64_content)
     except Exception as e:
         print('Error occurred while decoding b64 payload: ' + str(e))
-        exit(1)
+        raise e
 
     return decoded
 
@@ -28,7 +28,7 @@ def convert_to_hex(content):
         hex_rep = binascii.hexlify(content)
     except Exception as e:
         print('Error occurred while converting payload to hex: ' + str(e))
-        exit(1)
+        raise e
 
     return hex_rep
 
@@ -56,7 +56,7 @@ def calculate_length_from_length_prefix(length_prefix):
         tmp = int(length_prefix, 16) * 2  # * 2 is bcs each byte has 2 characters
     except Exception as e:
         print('Error occurred while calculating length of payload: ' + str(e))
-        exit(1)
+        raise e
 
     return tmp
 
@@ -189,7 +189,7 @@ def get_content_from_file(file_path):
 
     except Exception as e:
         print('Error Occurred in Reading Input File: ' + str(e))
-        exit(1)
+        raise e
 
 
 if __name__ == '__main__':

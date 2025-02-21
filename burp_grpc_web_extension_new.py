@@ -1,5 +1,7 @@
-from burp import IBurpExtender, IMessageEditorTabFactory
-from burp_grpc_web_editor_tab import gRPCWebExtensionEditorTab
+from burp import IBurpExtender
+from burp import IMessageEditorTabFactory
+from java.io import PrintWriter
+from burp_grpc_web_editor_tab import GrpcWebExtensionEditorTab
 
 class BurpExtender(IBurpExtender, IMessageEditorTabFactory):
     def registerExtenderCallbacks(self, callbacks):
@@ -9,8 +11,19 @@ class BurpExtender(IBurpExtender, IMessageEditorTabFactory):
         # Name of extension
         callbacks.setExtensionName("gRPC-Web Pentest Suite")
 
-    def createNewInstance(self, controller, editable):
-        return gRPCWebExtensionEditorTab(self._callbacks, editable)
+        # Set stdout and stderr
+        self.stdout = PrintWriter(callbacks.getStdout(), True)
+        self.stderr = PrintWriter(callbacks.getStderr(), True)
 
-    def pprint(self, text):
-        self._callbacks.printOutput(text)
+        # Register TabFactory
+        callbacks.registerMessageEditorTabFactory(self)
+
+
+    def createNewInstance(self, controller, editable):
+        return GrpcWebExtensionEditorTab(self, controller, editable)
+
+    def print_output(self, text):
+        self.stdout.println(text)
+
+    def print_error(self, text):
+        self.stderr(text)
