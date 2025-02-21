@@ -14,8 +14,8 @@ from burp import IIntruderPayloadProcessor
 import traceback
 
 import grpc_utils
-from burp_grpc_decodetab import ProtoDecodeTab
-from burp_grpc_insertionpoint import GrpcInsertionPoint
+from burp_with_dep.burp_grpc_decodetab import ProtoDecodeTab
+from burp_with_dep.burp_grpc_insertionpoint import GrpcInsertionPoint
 
 
 class BurpExtender(IBurpExtender, IContextMenuFactory, IMessageEditorTabFactory, IScannerInsertionPointProvider, IIntruderPayloadProcessor):
