@@ -69,6 +69,13 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
                 if value.startswith('application/grpc'):
                     self._grpcWebTextPayloadCheckBox.setSelected(value.startswith('application/grpc-web-text'))
                     return True
+            if h.lower().startswith('grpc-x-content-type'):
+                _, value2 = h.split(':', 1)
+                value2 = value2.strip()
+                if value2.startswith('application/grpc'):
+                    self._grpcWebTextPayloadCheckBox.setSelected(value2.startswith('application/grpc-web-text'))
+                    return True
+
         return False
 
     def isModified(self):

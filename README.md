@@ -23,7 +23,26 @@ This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extensio
 
 [![Watch the video](https://img.youtube.com/vi/VoDyweIjT2U/maxresdefault.jpg)](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
 
-# gRPC Coder Extension Usage
+
+# gRPC-Web Coder New Extension Usage [recommended]
+- The extension automatically gets enabled when the request has `Content-Type` or `grpc-x-content-type` headers with value of:
+  - application/grpc (extension gets enabled)
+  - application/grpc-web-text (extension automatically decodes and encodes the body)
+- Also, there is settings tab in message editor which you can enable or disable encoding format checkbox
+
+## gRPC-Web Coder New Extension Installation 
+1. Download the Whole Repository (the extension needs files in this repo)
+2. add [grpc_web_burp_extension.py](grpc_web_burp_extension.py) in Burp Extensions.
+
+## gRPC-Web Coder New Extension Features
+- New tab in repeater message editor
+- edit proto type definition
+- automatically detect grpc-web-text requests (via `Content-Type` or `grpc-x-content-type` headers)
+  - note: `grpc-x-content-type` is for when you want manually enable gRPC-Web Decoder Tab
+  - note: if you set value of headers to application/grpc-web-text the extension automatically decodes and encodes the payloads
+
+
+# gRPC Coder Old Extension (with dependency) Usage
 after installing the extension it adds to menu items into extensions menu item:
 - gRPC Coder **Decode**
 - gRPC Coder **Encode**
@@ -32,20 +51,10 @@ Steps:
 1. select the gRPC-Web base64 payload in burp interceptor or repeater and click on Decode item for decoding to human-readable format
 2. edit the text and select the new edited text and click on Encode item for encoding to gRPC-Web base64 format
 
-## Watch the Extension Usage Video on YouTube
+## Watch the Old Extension Usage Video on YouTube
 [Watch](https://youtu.be/w75_ixNzM24)
 
 [![Watch the video](https://img.youtube.com/vi/w75_ixNzM24/maxresdefault.jpg)](https://youtu.be/w75_ixNzM24)
-
-
-# gRPC-Web Coder New Extension Installation [recommended]
-1. Download the Whole Repository (the extension needs files in this repo)
-2. add [grpc_web_burp_extension.py](grpc_web_burp_extension.py) in Burp Extensions.
-
-## gRPC-Web Coder New Extension Features
-- New tab in repeater message editor
-- edit proto type definition
-- automatically detect grpc-web-text requests (via Content-Type)
 
 # gRPC Coder Old Extension (with dependency) Installation
 1. Download the Whole Repository (the extension needs some files in this repo)
