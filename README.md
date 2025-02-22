@@ -25,10 +25,9 @@ This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extensio
 
 
 # gRPC-Web Coder New Extension Usage [recommended]
-- The extension automatically gets enabled when the request has `Content-Type` or `grpc-x-content-type` headers with value of:
-  - application/grpc (extension gets enabled)
+- The extension automatically gets enabled when the request has `Content-Type` or `x-grpc-content-type` headers with value of:
   - application/grpc-web-text (extension automatically decodes and encodes the body)
-- Also, there is settings tab in message editor which you can enable or disable encoding format checkbox
+- Also, there is new burp tab which you can enable or disable encoding format checkboxes
 
 ## gRPC-Web Coder New Extension Installation 
 1. Download the Whole Repository (the extension needs files in this repo)
@@ -37,8 +36,8 @@ This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extensio
 ## gRPC-Web Coder New Extension Features
 - New tab in repeater message editor
 - edit proto type definition
-- automatically detect grpc-web-text requests (via `Content-Type` or `grpc-x-content-type` headers)
-  - note: `grpc-x-content-type` is for when you want manually enable gRPC-Web Decoder Tab
+- automatically detect grpc-web-text requests (via `Content-Type` or `x-grpc-content-type` headers)
+  - note: `x-grpc-content-type` is for when you want manually enable gRPC-Web Decoder Tab
   - note: if you set value of headers to application/grpc-web-text the extension automatically decodes and encodes the payloads
 
 

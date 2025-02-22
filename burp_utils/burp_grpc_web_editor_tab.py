@@ -12,6 +12,13 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
         self._editable = editable
         self._is_first_time_tab_opened = True
 
+        ## main (general) settings checkboxes from extender class to access the easier
+        self._enable_extension_msg_editor_tab_check_box = self._extender._enable_extension_msg_editor_tab_check_box
+        self._detect_encode_decode_format_from_ct_header_check_box = self._extender._detect_encode_decode_format_from_ct_header_check_box
+        self._detect_encode_decode_format_from_x_grpc_header_check_box = self._extender._detect_encode_decode_format_from_x_grpc_header_check_box
+        self._enable_application_grpc_web_text_decode_encode_by_default_check_box = self._extender._enable_application_grpc_web_text_decode_encode_by_default_check_box
+        self._enableGrpcWebTextEncodeDecode = False
+
         self._tabbedPane = JTabbedPane()
 
         # Payload Tab
@@ -47,11 +54,17 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
         self._tabbedPane.addTab("Type Definition", self._typeDefPanel)
 
         # Settings Tab
-        self._txtInputSettings = JPanel()
-        self._txtInputSettings.setLayout(GridLayout(1, 1))
-        self._grpcWebTextPayloadCheckBox = JCheckBox("application/grpc-web-text payload ?")
-        self._txtInputSettings.add(self._grpcWebTextPayloadCheckBox)
-        self._tabbedPane.addTab("Settings", self._txtInputSettings)
+        # self._txtInputSettings = JPanel()
+        # self._txtInputSettings.setLayout(GridLayout(1, 1))
+        # self._grpcWebTextPayloadCheckBox = JCheckBox("application/grpc-web-text payload ?")
+        # self._txtInputSettings.add(self._grpcWebTextPayloadCheckBox)
+        # self._tabbedPane.addTab("Settings", self._txtInputSettings)
+
+    def print_output(self, text):
+        self._extender.print_output(text)
+
+    def print_error(self, text):
+        self._extender.print_error(text)
 
     def getTabCaption(self):
         return "Decoded gRPC-Web ProtoBuf"
@@ -60,23 +73,37 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
         return self._tabbedPane
 
     def isEnabled(self, content, isRequest):
+        if self._enable_application_grpc_web_text_decode_encode_by_default_check_box.isSelected():
+            self._enableGrpcWebTextEncodeDecode = True
+            return True
+
+        __isEnabled = False
         analyzed_request = self._extender._helpers.analyzeRequest(content)
         req_headers = analyzed_request.getHeaders()
-        for h in req_headers:
-            if h.lower().startswith('content-type'):
-                _, value = h.split(':', 1)
-                value = value.strip()
-                if value.startswith('application/grpc'):
-                    self._grpcWebTextPayloadCheckBox.setSelected(value.startswith('application/grpc-web-text'))
-                    return True
-            if h.lower().startswith('grpc-x-content-type'):
-                _, value2 = h.split(':', 1)
-                value2 = value2.strip()
-                if value2.startswith('application/grpc'):
-                    self._grpcWebTextPayloadCheckBox.setSelected(value2.startswith('application/grpc-web-text'))
-                    return True
 
-        return True
+        if self._enable_extension_msg_editor_tab_check_box.isSelected():
+            __isEnabled = True
+
+        if (self._detect_encode_decode_format_from_ct_header_check_box.isSelected() or
+                self._detect_encode_decode_format_from_x_grpc_header_check_box.isSelected()):
+            for h in req_headers:
+                if self._detect_encode_decode_format_from_ct_header_check_box.isSelected():
+                    if h.lower().startswith('content-type'):
+                        _, value = h.split(':', 1)
+                        value = value.strip()
+                        if value.startswith('application/grpc-web-text'):
+                            self._enableGrpcWebTextEncodeDecode = True
+                            __isEnabled = True
+
+                elif self._detect_encode_decode_format_from_x_grpc_header_check_box.isSelected():
+                    if h.lower().startswith('x-grpc-content-type'):
+                        _, value2 = h.split(':', 1)
+                        value2 = value2.strip()
+                        if value2.startswith('application/grpc-web-text'):
+                            self._enableGrpcWebTextEncodeDecode = True
+                            __isEnabled = True
+
+        return __isEnabled
 
     def isModified(self):
         """ Check if either tab content is modified """
@@ -108,6 +135,7 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
             except Exception as e:
                 message = "Error decoding request: {}".format(str(e))
                 typedef_main_json = "No Type Definition"
+                self.print_error(message)
 
             self._txtInputPayload.setText(message)
             self._txtInputPayload.setEditable(self._editable)
@@ -124,11 +152,11 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
         if source == self._editButton:
             self._txtInputTypeDef.setEditable(True)
             self._saveButton.setEnabled(True)
-            print("[*] Edit mode enabled")
+            self.print_output("[*] Edit mode enabled")
 
         elif source == self._saveButton:
             content = self._txtInputTypeDef.getText()
-            print("[*] Type Definition Saved:", content)
+            self.print_output("[*] Type Definition Saved")
             self._txtInputTypeDef.setEditable(False)
             self._saveButton.setEnabled(False)
             self._isTypeDefinitionEdited = True
@@ -138,7 +166,7 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
             content = self._txtInputTypeDef.getText()
             self._txtInputTypeDef.setEditable(False)
             self._saveButton.setEnabled(False)
-            print("[*] Type Definition is Reset:", content)
+            self.print_output("[*] Type Definition is Reset")
 
     def getMessage(self):
         """ Return the modified content from the payload tab """
@@ -160,8 +188,7 @@ class GrpcWebExtensionEditorTab(IMessageEditorTab, ActionListener):  # FIXED: Im
                 return new_request
 
             except Exception as e:
-                traceback.print_exc()
-                print("Error encoding modified payload:", str(e))
+                self.print_error("Error encoding modified payload:", str(e))
 
 
         # Return the original request if no modifications
