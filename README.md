@@ -4,17 +4,36 @@ gRPC-Pentest-Suite is set of tools for pentesting / hacking gRPC Web application
 
 Available Content Types:
 - [x] application/grpc-web-text
-- [ ] application/grpc-web+proto ([See blackboxprotobuf Repo](https://github.com/nccgroup/blackboxprotobuf))
+- [x] application/grpc-web+proto
 
 
 gRPC-Pentest-Suite contains these 2 tools:
 - **[grpc_scan](#grpc-coder-usage)** scanning the gRPC-web javascript webpacked files to detect grpc endpoints, services, messages and field types
 - **[grpc_coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
 - **[grpc_web_burp_extension.py](#grpc-coder-extension-usage)** extension for burp suite to easily using gRPC-Coder tool
+  - [x] application/grpc-web-text support
+  - [x] application/grpc-web+proto support
 - **[big_string_chunker](#big-string-chunker-tool)** this tool chunks a big string into pieces of 80 characters, so that gRPC-coder can encode it (also reverse)
 - **[old_grpc_web_burp_extension_with_dependency.py](#grpc-coder-old-extension-with-dependency-installation)** old extension for burp suite which has some dependencies
 
-# Hacking into gRPC-Web Article & YouTube Video
+
+# Video of New Extension
+[grpc_web_burp_extension.py](./grpc_web_burp_extension.py) file is new extension which does not have any dependencies and all dependencies are in this repo (in lib dir).
+
+## gRPC-Web Burp Extension Images
+- Main Settings:
+![mainSettingsImage](https://github.com/user-attachments/assets/77d0dc20-f6a2-4ac6-b955-00cd6f90e0ec)
+
+- Message Editor:
+![messageEditorMainImage](https://github.com/user-attachments/assets/2a72647c-bea6-44c5-920e-da051cdc93e0)
+
+- Message Editor Decoded:
+![messageEditorDecodedImage](https://github.com/user-attachments/assets/1c9a972c-42df-45ef-9317-989c912bfa99)
+
+## Todo
+- [ ] Create tutorial video for using new extension
+
+# Hacking into gRPC-Web Article & YouTube Video (old Extension)
 This article includes the methodology for pentesting gRPC-Web and a methodology for finding hidden servies and endpoints. Read [Hacking into gRPC-Web](https://infosecwriteups.com/hacking-into-grpc-web-a54053757a45) article and for `application/grpc-web+proto` see this article [Hacking into gRPC-Web : Part 2](https://medium.com/@nxenon/hacking-into-grpc-web-part-2-f8540309e1e8).
 
 This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extension: How to manipulate gRPC-Web payloads and analyse the JavaScript webpacked files to find hidden endpoints, services and messages.
