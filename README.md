@@ -37,8 +37,9 @@ gRPC-Pentest-Suite contains these 2 tools:
 - [ ] Create tutorial video for using new extension
 
 # gRPC-Web Coder New Extension Usage [recommended]
-- The extension automatically gets enabled when the request has `Content-Type` or `x-grpc-content-type` headers with value of:
+- The extension automatically gets enabled when the request has `Content-Type` or `x-grpc-content-type` headers (based on the settings you have set) with value of:
   - application/grpc-web-text (extension automatically decodes and encodes the body)
+  - application/grpc-web+proto (extension automatically decodes and encodes the body)
 - Also, there is new burp tab which you can enable or disable encoding format checkboxes
 
 ## gRPC-Web Coder New Extension Installation 
