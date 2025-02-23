@@ -33,11 +33,15 @@ class BurpExtender(IBurpExtender, IMessageEditorTabFactory, ITab, ActionListener
         self._enable_extension_msg_editor_tab_check_box.setSelected(True)
         self._detect_encode_decode_format_from_ct_header_check_box = JCheckBox("Detect Encode/Decode format from "
                                                                                "Content-Type header (with value of "
-                                                                               "application/grpc-web-text)")
+                                                                               "application/grpc-web-text or "
+                                                                               "application/grpc-web+proto)")
         self._detect_encode_decode_format_from_ct_header_check_box.addActionListener(self)
         self._detect_encode_decode_format_from_ct_header_check_box.setSelected(True)
         self._detect_encode_decode_format_from_x_grpc_header_check_box = JCheckBox("Detect Encode/Decode format from "
-                                                                                   "x-grpc-content-type header (with value of application/grpc-web-text)")
+                                                                                   "x-grpc-content-type header (with "
+                                                                                   "value of "
+                                                                                   "application/grpc-web-text or "
+                                                                                   "application/grpc-web+proto)")
 
         self._detect_encode_decode_format_from_x_grpc_header_check_box.addActionListener(self)
         self._detect_encode_decode_format_from_x_grpc_header_check_box.setEnabled(False)
@@ -49,6 +53,12 @@ class BurpExtender(IBurpExtender, IMessageEditorTabFactory, ITab, ActionListener
                                                                                               "default on all requests")
         self._enable_application_grpc_web_text_decode_encode_by_default_check_box.addActionListener(self)
 
+        self._enable_application_grpc_web_proto_decode_encode_by_default_check_box = JCheckBox("Enable "
+                                                                                              "application/grpc-web"
+                                                                                              "+proto Decode/Encode by "
+                                                                                              "default on all requests")
+        self._enable_application_grpc_web_proto_decode_encode_by_default_check_box.addActionListener(self)
+
         # Add components to panel
         self._panel.add(features_label)
         self._panel.add(self._enable_extension_msg_editor_tab_check_box)
@@ -56,6 +66,7 @@ class BurpExtender(IBurpExtender, IMessageEditorTabFactory, ITab, ActionListener
         self._panel.add(self._detect_encode_decode_format_from_x_grpc_header_check_box)
         self._panel.add(content_type_note_label)
         self._panel.add(self._enable_application_grpc_web_text_decode_encode_by_default_check_box)
+        self._panel.add(self._enable_application_grpc_web_proto_decode_encode_by_default_check_box)
 
         # Register the new tab
         callbacks.addSuiteTab(self)
@@ -88,12 +99,40 @@ class BurpExtender(IBurpExtender, IMessageEditorTabFactory, ITab, ActionListener
 
                 self._enable_extension_msg_editor_tab_check_box.setSelected(True)
                 self._enable_extension_msg_editor_tab_check_box.setEnabled(False)
+
+                self._enable_application_grpc_web_proto_decode_encode_by_default_check_box.setSelected(False)
+                self._enable_application_grpc_web_proto_decode_encode_by_default_check_box.setEnabled(False)
+
             else:
                 self._detect_encode_decode_format_from_x_grpc_header_check_box.setEnabled(True)
                 self._detect_encode_decode_format_from_ct_header_check_box.setEnabled(True)
 
                 self._enable_extension_msg_editor_tab_check_box.setSelected(True)
                 self._enable_extension_msg_editor_tab_check_box.setEnabled(True)
+
+                self._enable_application_grpc_web_proto_decode_encode_by_default_check_box.setEnabled(True)
+
+        elif source == self._enable_application_grpc_web_proto_decode_encode_by_default_check_box:
+            if self._enable_application_grpc_web_proto_decode_encode_by_default_check_box.isSelected():
+                self._detect_encode_decode_format_from_x_grpc_header_check_box.setSelected(False)
+                self._detect_encode_decode_format_from_x_grpc_header_check_box.setEnabled(False)
+
+                self._detect_encode_decode_format_from_ct_header_check_box.setSelected(False)
+                self._detect_encode_decode_format_from_ct_header_check_box.setEnabled(False)
+
+                self._enable_extension_msg_editor_tab_check_box.setSelected(True)
+                self._enable_extension_msg_editor_tab_check_box.setEnabled(False)
+
+                self._enable_application_grpc_web_text_decode_encode_by_default_check_box.setSelected(False)
+                self._enable_application_grpc_web_text_decode_encode_by_default_check_box.setEnabled(False)
+            else:
+                self._detect_encode_decode_format_from_x_grpc_header_check_box.setEnabled(True)
+                self._detect_encode_decode_format_from_ct_header_check_box.setEnabled(True)
+
+                self._enable_extension_msg_editor_tab_check_box.setSelected(True)
+                self._enable_extension_msg_editor_tab_check_box.setEnabled(True)
+
+                self._enable_application_grpc_web_text_decode_encode_by_default_check_box.setEnabled(True)
 
     def getTabCaption(self):
         return "gRPC-Web Pentest Suite"

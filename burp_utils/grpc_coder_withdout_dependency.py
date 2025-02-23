@@ -3,6 +3,7 @@ This is created to remove the protoscope binary dependency for burp suite
 """
 
 import grpc_coder
+import base64
 import json
 from collections import OrderedDict
 import sys
@@ -11,6 +12,7 @@ sys.setdefaultencoding('utf-8')
 sys.path.insert(0, "libs/blackboxprotobuf")
 sys.path.insert(0, "libs/six")
 import blackboxprotobuf
+
 
 def decode_b64_grpc_web_text(payload):
     try:
@@ -26,6 +28,13 @@ def decode_b64_grpc_web_text(payload):
         raise e
 
 
+def decode_grpc_web_proto_payload(payload):
+    b64_payload = base64.b64encode(payload)
+    b64_payload = b64_payload.decode('utf-8')
+    msg, typedef = decode_b64_grpc_web_text(b64_payload)
+    return msg, typedef
+
+
 def encode_grpc_web_json_to_b64_format(json_payload, typedef):
     raw_paylaod = blackboxprotobuf.protobuf_from_json(json_payload, typedef)
     hex_converted = grpc_coder.convert_to_hex(raw_paylaod)
@@ -34,6 +43,15 @@ def encode_grpc_web_json_to_b64_format(json_payload, typedef):
     ascii_result = grpc_coder.new_method_convert_hex_to_ascii(new_payload_with_length_prefix)
     b64_result = grpc_coder.convert_ascii_to_b64(ascii_result)
     return b64_result
+
+
+def encode_grpc_web_proto_json_to_proto_format(json_payload, typedef):
+    raw_paylaod = blackboxprotobuf.protobuf_from_json(json_payload, typedef)
+    hex_converted = grpc_coder.convert_to_hex(raw_paylaod)
+    hex_length_prefix = grpc_coder.get_padded_length_of_new_payload(hex_converted)
+    new_payload_with_length_prefix = hex_length_prefix + str(hex_converted.decode())
+    ascii_result = grpc_coder.new_method_convert_hex_to_ascii(new_payload_with_length_prefix)
+    return ascii_result
 
 
 def get_main_json_from_type_def_ordered_dict(type_def):
