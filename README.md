@@ -36,16 +36,6 @@ gRPC-Pentest-Suite contains these 2 tools:
 ## Todo
 - [ ] Create tutorial video for using new extension
 
-# Hacking into gRPC-Web Article & YouTube Video (old Extension)
-This article includes the methodology for pentesting gRPC-Web and a methodology for finding hidden servies and endpoints. Read [Hacking into gRPC-Web](https://infosecwriteups.com/hacking-into-grpc-web-a54053757a45) article and for `application/grpc-web+proto` see this article [Hacking into gRPC-Web : Part 2](https://medium.com/@nxenon/hacking-into-grpc-web-part-2-f8540309e1e8).
-
-This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extension: How to manipulate gRPC-Web payloads and analyse the JavaScript webpacked files to find hidden endpoints, services and messages.
-[Watch](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
-
-
-[![Watch the video](https://img.youtube.com/vi/VoDyweIjT2U/maxresdefault.jpg)](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
-
-
 # gRPC-Web Coder New Extension Usage [recommended]
 - The extension automatically gets enabled when the request has `Content-Type` or `x-grpc-content-type` headers with value of:
   - application/grpc-web-text (extension automatically decodes and encodes the body)
@@ -71,6 +61,15 @@ after installing the extension it adds to menu items into extensions menu item:
 Steps:
 1. select the gRPC-Web base64 payload in burp interceptor or repeater and click on Decode item for decoding to human-readable format
 2. edit the text and select the new edited text and click on Encode item for encoding to gRPC-Web base64 format
+
+## Hacking into gRPC-Web Article & YouTube Video (old Extension)
+This article includes the methodology for pentesting gRPC-Web and a methodology for finding hidden servies and endpoints. Read [Hacking into gRPC-Web](https://infosecwriteups.com/hacking-into-grpc-web-a54053757a45) article and for `application/grpc-web+proto` see this article [Hacking into gRPC-Web : Part 2](https://medium.com/@nxenon/hacking-into-grpc-web-part-2-f8540309e1e8).
+
+This video includes using both gRPC Scan tool and gRPC Coder Burp Suite Extension: How to manipulate gRPC-Web payloads and analyse the JavaScript webpacked files to find hidden endpoints, services and messages.
+[Watch](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
+
+
+[![Watch the video](https://img.youtube.com/vi/VoDyweIjT2U/maxresdefault.jpg)](https://youtu.be/VoDyweIjT2U?si=kXWbQELnJZfyHaId)
 
 ## Watch the Old Extension Usage Video on YouTube
 [Watch](https://youtu.be/w75_ixNzM24)
