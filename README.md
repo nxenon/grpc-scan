@@ -9,12 +9,14 @@ Available Content Types:
 
 gRPC-Pentest-Suite contains these 2 tools:
 - **[grpc_scan](#grpc-coder-usage)** scanning the gRPC-web javascript webpacked files to detect grpc endpoints, services, messages and field types
-- **[grpc_coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
 - **[grpc_web_burp_extension.py](#grpc-coder-extension-usage)** extension for burp suite to easily using gRPC-Coder tool
   - [x] application/grpc-web-text support
   - [x] application/grpc-web+proto support
+- **[grpc_coder](#grpc-coder-usage)** encoding and decoding gRPC-web payloads for pentesting (manipulating payloads)
+  - [x] only application/grpc-web-text support
 - **[big_string_chunker](#big-string-chunker-tool)** this tool chunks a big string into pieces of 80 characters, so that gRPC-coder can encode it (also reverse)
 - **[old_grpc_web_burp_extension_with_dependency.py](#grpc-coder-old-extension-with-dependency-installation)** old extension for burp suite which has some dependencies
+  - [x] only application/grpc-web-text support
 
 
 # Video of New Extension
